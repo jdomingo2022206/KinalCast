@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login as loginRequest } from '../../services'
+import { login as loginRequest } from "../../services/api.jsx";
 import toast from "react-hot-toast";
 
 export const useLogin = () => {

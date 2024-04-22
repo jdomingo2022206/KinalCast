@@ -1,26 +1,26 @@
-import { Navbar } from "../../components/navbars/Navbar"
-import { useChannels } from "../../shared/hooks/useChannels"
-import { useUserDetails } from "../../shared/hooks"
-import { useEffect } from "react"
-
-import './dashboardPage.css'
+import { useEffect } from "react";
+import { Navbar } from "../../components/navbars/Navbar";
+import { useUserDetails } from "../../shared/hooks";
+import { useChannels } from "../../shared/hooks/useChannels";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
+import "./dashboardPage.css";
+import { Content } from "../../components/dashboard/Content";
 
 export const DashboardPage = () => {
-  const {getChannels, allChannels, isFetching} =useChannels()
-  const {isLogged} = useUserDetails()
+  const { getChannels, allChannels, isFetching } = useChannels();
+  const { isLogged } = useUserDetails();
 
-  useEffect(() =>{
-    getChannels(isLogged)
-  },[])
+  useEffect(() => {
+    getChannels(isLogged);
+  }, []);
 
-  if(isFetching){
+  if (isFetching) {
     return <LoadingSpinner />;
   }
-
   return (
-    <div>'
-      <Navbar/>
+    <div>
+      <Navbar />
       <Content channels={allChannels} getChannels={getChannels}/>
     </div>
-  )
-}
+  );
+};

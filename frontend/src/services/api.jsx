@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-    baseURL: 'http://127.0.0.1:3001/twitch/v1',
+    baseURL: 'http://127.0.0.1:8080/twitch/v1',
     timeout: 1000
 })
 
@@ -28,12 +28,14 @@ export const register = async (data) => {
 }
 
 export const getChannels = async () => {
-    try {
+    try{
         return await apiClient.get('/channels')
-    } catch (e) {
+    }catch(e){
+        console.log('Chipilin '+e)
         return{
             error: true,
             e
+            
         }
     }
 }

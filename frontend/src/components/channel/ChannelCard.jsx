@@ -1,23 +1,25 @@
-const imageUrl = 'https://static-cdn.jtvnw.net/user-default-pictures-uv/998f01ae-def8-11e9-b95c-784f43822e80-profile_image-300x300.png'
+/* eslint-disable react/prop-types */
+
+const imageUrl = 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png'
 
 const ChannelAvatar = ({url}) => {
     return(
         <div className="channels-avatar-container">
-            <img src={url || imageUrl} alt="Default Avatar" width='100%' height='100%' />
+            <img src={url || imageUrl} width='100%' height='100%' alt="Default avatar" />
         </div>
     )
 }
 
 export const ChannelCard = ({
-    title, 
+    title,
     id,
     username,
     isOnline,
     avatarUrl,
-    navigateToChannelHandle
+    navigateToChannelHandler
 }) => {
     const handleNavigate = () => {
-        navigateToChannelHandle(id)
+        navigateToChannelHandler(id)
     }
 
     return(
@@ -25,8 +27,8 @@ export const ChannelCard = ({
             <ChannelAvatar url={avatarUrl}/>
             <span className="channels-card-title">{title}</span>
             <span className="channels-card-title">{username}</span>
-            <span className="channels-card-title" style={{color: isOnline? 'green':'red'}}>
-                {isOnline? 'Online':'Offline'}
+            <span className="channels-card-title" style={{color: isOnline ? 'green' : 'red'}}>
+                {isOnline ? 'Online' : 'Offline'}
             </span>
         </div>
     )

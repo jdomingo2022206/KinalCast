@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import { Route, Routes } from "react-router-dom";
-import { Channels } from "../channel/Channel";
+import { Channels } from "../channel/Channels";
 
 export const Content = ({channels}) => {
     return(
