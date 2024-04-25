@@ -9,9 +9,8 @@ export const useChannels = () => {
     const getChannels = async (isLogged = false) =>{
         const channelsData = await getChannelsRequest()
         if(channelsData.error){
-            console.log('Chipilin pre toast'+channelsData.error)
             return toast.error(
-                channelsData.e?.response?.data || 'Chipilin pa: Ocurrió un error al leer los canales'
+                channelsData.e?.response?.data || 'Ocurrió un error al leer los canales'
             )
         }
 
@@ -19,21 +18,21 @@ export const useChannels = () => {
             return setChannels({
                 channels: channelsData.data.channels
             })
-        }   
-
-        const followedChannelsData = await getFollowedChannels();
-
+        }  
+        
+        const followedChannelsData = await getFollowedChannels()
+        console.log(followedChannelsData)
+        
         if(followedChannelsData.error){
-            console.log('Chipilin pre toast'+channelsData.error)
             return toast.error(
-                channelsData.e?.response?.data || 'Chipilin pa: Ocurrió un error al leer los canales  que sigues'
+                followedChannelsData.e?.response?.data || 
+                'Ocurrió un error al leer los canales que sigues'
             )
         }
-        
 
         setChannels({
             channels: channelsData.data.channels,
-            followedChannels: followedChannelsData.data.channels.filter(channel =>
+            followedChannels: channelsData.data.channels.filter(channel =>
                 followedChannelsData.data.followedChannels.includes(channel.id)
             )
         })

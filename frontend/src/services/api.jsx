@@ -1,9 +1,25 @@
 import axios from "axios";
+import { logout } from "../shared/hooks";
 
 const apiClient = axios.create({
-    baseURL: 'http://127.0.0.1:8080/twitch/v1',
-    timeout: 1000
+    baseURL: 'http://127.0.0.1:3001/twitch/v1',
+    timeout: 5000
 })
+
+apiClient.interceptors.request.use(
+    (config) => {
+        const userDetails = localStorage.getItem('user')
+    
+        if(userDetails){
+            const token = JSON.parse(userDetails).token
+            config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
+    },
+    (e) => {
+        return Promise.reject(e)
+    }
+)
 
 export const login = async (data) => {
     try{
@@ -11,7 +27,7 @@ export const login = async (data) => {
     }catch(e){
         return{
             error: true,
-            e
+            e 
         }
     }
 }
@@ -31,11 +47,9 @@ export const getChannels = async () => {
     try{
         return await apiClient.get('/channels')
     }catch(e){
-        console.log('Chipilin '+e)
         return{
             error: true,
             e
-            
         }
     }
 }
@@ -44,18 +58,18 @@ export const getFollowedChannels = async () => {
     try{
         return await apiClient.get('/channels/followed')
     }catch(e){
-        console.log('Chipilin '+e)
+        checkResponseStatus(e)
         return{
             error: true,
-            e
-            
+            e: e
         }
     }
 }
 
 const checkResponseStatus = (e) => {
-    const responseStatus = e?.response.status 
+    const responseStatus = e?.response?.status
+
     if(responseStatus){
-        (responseStatus === 401 || responseStatus === 403) && logout()
+        (responseStatus === 401 || responseStatus === 403) && logout
     }
 }
