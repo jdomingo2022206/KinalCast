@@ -54,6 +54,28 @@ export const getChannels = async () => {
     }
 }
 
+export const getChannelSettings = async () => {
+    try{
+        return await apiClient.get('/settings/channel')
+    }catch(e){
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const updateChannelSettings = async () => {
+    try{
+        return await apiClient.put('/settings/channel')
+    }catch(e){
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
 export const getFollowedChannels = async () => {
     try{
         return await apiClient.get('/channels/followed')
