@@ -65,9 +65,20 @@ export const getChannelSettings = async () => {
     }
 }
 
-export const updateChannelSettings = async () => {
+export const changePassword = async (data) => {
     try{
-        return await apiClient.put('/settings/channel')
+        return await apiClient.patch('/settings/password', data)
+    }catch(e){
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const updateChannelSettings = async (data) => {
+    try{
+        return await apiClient.put('/settings/channel', data)
     }catch(e){
         return{
             error: true,
@@ -84,6 +95,28 @@ export const getFollowedChannels = async () => {
         return{
             error: true,
             e: e
+        }
+    }
+}
+
+export const getChannelDetails = async (channelId) => {
+    try{
+        return await apiClient.get(`/channels/${channelId}`)
+    }catch(e){
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const followChannel = async (channelId) => {
+    try{
+        return await apiClient.post('/channels/follow',{channelId})
+    }catch(e){
+        return{
+            error: true,
+            e
         }
     }
 }

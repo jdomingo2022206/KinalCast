@@ -24,8 +24,8 @@ export const DashboardPage = () => {
   return (
     <div className="dashboard-container">
       <Navbar />
-      <Sidebar channels={followedChannels}/>
-      <Content channels={allChannels} getChannels={getChannels}/>
+      <Sidebar channels={followedChannels || []}/>
+      <Content channels={allChannels || []} getChannels={getChannels}/>
     </div>
   );
 };

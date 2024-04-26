@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import {getChannelSettings, updateChannelSettings} from "../../services/api.jsx"
+import { getChannelSettings, updateChannelSettings } from "../../services";
 
 export const useChannelSettings = () => {
     const [channelSettings, setChannelSettings] = useState()
@@ -8,10 +8,10 @@ export const useChannelSettings = () => {
     const fetchChannelSettings = async () => {
         const response = await getChannelSettings()
 
-        if (response.error){
+        if(response.error){
             return toast.error(
                 response.e?.response?.data ||
-                'Ocurrio un error al obtener la data del canal'
+                'Ocurrió un error al obtener la data del canal'
             )
         }
 
@@ -26,35 +26,24 @@ export const useChannelSettings = () => {
 
     const saveSettings = async (data) => {
         const response = await updateChannelSettings(data);
-        if (response.error){
+
+        if(response.error){
             return toast.error(
                 response.e?.response?.data ||
-                'Ocurrio un error al actualizar la data del canal'
+                'Ocurrió un error al actualizar la data del canal'
             )
         }
 
-        toast.succes(
-            'Informacion actualizada correctamente'
-        )
+        toast.success('Información actualizada exitosamente')
     }
 
     useEffect(() =>{
         fetchChannelSettings()
-    },[])
+    }, [])
 
     return{
-        isFetching : !channelSettings,
+        isFetching: !channelSettings,
         channelSettings,
         saveSettings
     }
 }
-
-
-
-
-
-
-
-
-
-

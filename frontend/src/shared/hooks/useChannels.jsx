@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { getChannels as getChannelsRequest, getFollowedChannels } from "../../services/api";
 
 export const useChannels = () => {
-    const [ channels, setChannels] = useState(null)
+    const [ channels, setChannels] = useState([])
 
     const getChannels = async (isLogged = false) =>{
         const channelsData = await getChannelsRequest()
@@ -21,7 +21,6 @@ export const useChannels = () => {
         }  
         
         const followedChannelsData = await getFollowedChannels()
-        console.log(followedChannelsData)
         
         if(followedChannelsData.error){
             return toast.error(
